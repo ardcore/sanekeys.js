@@ -122,7 +122,7 @@ var sanekeys = (function(g, undefined) {
     };
 
     function err(err) {
-        thrown new Error(err)
+        throw new Error(err)
     }
 
     handlers = {
