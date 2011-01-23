@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>javascript keys made simple(r)</title>
+    <script src="sanekeys.js"></script>
+</head>
+<body>
+<div style="border-bottom: 1px solid #ccc; margin-bottom: 10px">
+    tests: press 1, 2, w, s, a, d, z+x, c, v, b.
+</div>
+<div id="debug"></div>
+<script>
+
+    var debug = function(txt) {
+        var el = document.getElementById("debug");
+        el.innerHTML = txt + "<br>" + el.innerHTML;
+    }
+
+    // log whole key activity
+    sanekeys.watchKey("1", {
+        keyDown: function(e) {
+            debug("1 down: " + e.keyCode);
+        },
+        keyUp: function(e) {
+            debug("1 up: " + e.keyCode);
+        },
+        keyPress: function(e) {
+            debug("1 press: " + e.charCode);
+        }
+    });
+
+    // log single key activity
+    sanekeys.watchKey("2", { // 66
+        keyPress: function(e) {
+            debug("2 pressed, interested in 'press' events only");
+        }
+    });
+
+    // synthetic sugar for setting multiple keys
+    sanekeys.setKeys({
+        'w': function(e) {
+            debug("going up");
+         },
+        's': function(e) {
+            debug("going down");
+         },
+        'a': function(e) {
+            debug("going left");
+         },
+        'd': function(e) {
+            debug("going right");
+         },
+
+        'z': function(e) {
+            sanekeys.isPressed('x') && debug("z+x combo.")
+         },
+        'x': function(e) {
+             sanekeys.isPressed('z') && debug("z+x combo.")
+         },
+         'c': function(e) {
+             debug("time since last key down: " + sanekeys.getTimeFromLastDawn() + " ms");
+         },
+        'v': function(e) {
+            debug("time since last key down: " + sanekeys.getTimeFromLastUp () +" ms");
+        },
+        'b': function(e) {
+            debug("time since last key down: " + sanekeys.getTimeFromLastPress() + " ms");
+        }
+
+    })
+
+
+</script>
+</body>
+</html>

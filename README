@@ -1,0 +1,36 @@
+javascript keyboard sanitizer.
+to be used in html5 games, mostly.
+
+it's _not_ finished, optimized & tested. but it works.
+
+API may change.
+
+Basic usage:
+
+    sanekeys.setKeys({
+        'w': function(e) {
+            debug("going up");
+         },
+        's': function(e) {
+            debug("going down");
+         },
+        'a': function(e) {
+            debug("going left");
+         },
+        'd': function(e) {
+            debug("going right");
+         }
+    })
+
+more info in the test.html file.
+
+TODO:
+ - support for the rest of the keyboard (,./ etc.. nothing fancy, I don't want to
+ deal with system-specific issues. probably will have to anyway ;>)
+ - overrides: testing and fixing
+ - dealing with propagations
+ - parsing human-readable keystrings to keycodes. all-lower, a+b equals two
+keys at once (difference: few millis), a(b) equals `holding a press b`. nesting?
+ - modifiers: isShift... etc
+ - lastTimePressed with parameters (key)
+ - combos. afterCombo("w+space,w,w(space)", 10) - second parameter is maximum time
